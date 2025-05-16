@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<head>
+  <title>EMBER ESTATE</title>
+  <style>
+    
+    body {
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /*font-family*/
+      background-color:#2f5357;
+    }
+
+    header {
+      background-image: linear-gradient(180deg,#b3a087,#579da9,#7ba3a4,#f6f6fb);
+      color: #2d2f21 ;
+      padding: 10px;
+      text-align: center;
+   
+    }
+    .logo {
+        max-width: 100px;
+        text-align: right;
+     
+      }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      color: #b3a087;
+      text-decoration: none;
+    }
+    
+    nav ul li a:hover {
+  text-decoration: underline;
+} 
+.reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .container {
+            display: flex;
+            align-items: center;
+        }
+        .container img,form {
+            max-width: 500px; 
+            margin-right: 25px;
+        }
+        .container .text {
+            flex: 1;
+        }
+        textarea {
+           
+            padding: 15px;
+           
+            border-radius: 15px;
+            background: linear-gradient(to right, #ffecd2, #579da9);
+            font-size: 16px;
+            color: #333;
+            resize: vertical;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+           
+        }
+
+        textarea:focus {
+            border-color: white;
+            box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
+            outline: none;
+            background: linear-gradient(to right, #f6d365, #579da9);
+        }
+        
+.glow {
+
+  color: #fff;
+
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #8B4513, 0 0 40px #8B4513, 0 0 50px #8B4513, 0 0 60px #8B4513, 0 0 70px #8B4513;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #A52A2A, 0 0 40px #A52A2A, 0 0 50px #A52A2A, 0 0 60px #A52A2A, 0 0 70px #A52A2A, 0 0 80px #A52A2A;
+  }
+}
+
+ 
+    section {
+      padding: 50px;
+      margin-left: 5px;
+    
+    }
+    section :hover{
+      background-color:#579da9;
+
+    }
+   
+    .about,
+    .contact {
+     background-color: #b3a087 ;
+    
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .button
+     { background-color:#2d2f21;
+        color: white;
+      border-radius: 12px;}
+
+    .button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+textarea {
+  resize: none;
+}
+   
+
+    footer {
+      background-color:#2d2f21;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="C:\Users\bhuvi\Downloads\XX.gif" alt="Logo" class="logo">
+       <p style="font-family: fantasy; font-size: 60px;" class="neonText"> 𝐄𝐌𝐁𝐄𝐑 𝐄𝐒𝐓𝐀𝐓𝐄</p>
+    <nav>
+      <ul>
+        <li><a href="#about">ABOUT </a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="RestaurantMain.html">RESTAURANT</a></li>
+        <li><a href="yy.html">ROOMS</a></li>
+        <li><a href="Activities.html">ACTIVITIES</a></li>
+      </ul>
+    </nav>
+
+  </header>
+  <img class="mySlides" src="https://media.cntraveler.com/photos/5e5e9a3617b1dc0008f2fbfe/4:3/w_2664,h_1998,c_limit/EauPalmBeachResort&Spa-PalmBeachFlorida-2020-5.jpg" style="width:100%" >
+  
+  <img class="mySlides" src="https://w0.peakpx.com/wallpaper/782/744/HD-wallpaper-enjoy-mousse-food-red-black-sweet-dessert.jpg" style="width:100%">
+
+  <img class="mySlides" src="https://www.mid-southnightlights.com/hubfs/FB%20Vacation%20Lighting.png" style="width:100%">
+ 
+  <script>
+    var slideIndex = 0;
+    carousel();
+
+  function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > x.length) {slideIndex = 1}
+  x[slideIndex-1].style.display = "block";
+  setTimeout(carousel, 3000);
+}
+function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add('visible');
+        } else {
+          reveals[i].classList.remove('visible');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', reveal);
+    // To check the scroll position on page load
+    reveal();
+function message(){
+  document.getElementById("textmain").innerHTML="Info submitted!";
+window.alert("We will contact you soon !")
+ 
+}
+  </script>
+  
+
+  <section id="about">
+   
+    <div class="about">
+      <div class="reveal">
+
+      <h1 style="font-size: 40px; color:#2d2f21; margin-left: 180px;" >            ꧁༺ 𝓐𝓑𝓞𝓤𝓣 𝓤𝓢 ༻꧂ </h1>
+      <div class="container">
+        <div class="text">
+      <p style="text-align: center;">
+      <img  clas="bu" src="C:\Users\bhuvi\Downloads\XX.gif" alt="Image Description" width="300px" style="border-radius: 10px; background:#579da9;
+			box-shadow: 0 0 100px #579da9;">
+    </p>
+      
+      <p style="font-size: 25px;font-family: 'Times New Roman', Times, serif; color:#2d2f21 ;text-align: center;" id="hpi" ><b>Ember Estate, established in 2005, is a tranquil valley retreat that offers luxury and natural beauty. It features plush rooms, gourmet cuisine, and exciting activities for a perfect relaxing and adventurous getaway. Enjoy poolside lounging or exploring the outdoors for an unforgettable experience.</b> </p></div>
+      <img src="https://chanoudgarh.com/wp-content/uploads/2023/08/Luxury-Vacation-Ideas-for-Families-in-India.jpg" alt="Image Description">
+      
+      </div>
+   </div>
+      
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact" >
+      <div class="reveal">
+      <h2 style="font-size: 40px; color:#2d2f21;text-align: right;" > ꧁༺ 𝓒𝓞𝓝𝓣𝓐𝓒𝓣 𝓤𝓢 ༻꧂ </h2>
+      <div class="container">
+        <div class="text">
+     <b> <ps style="font-size: 25px;font-family: 'Times New Roman', Times, serif; ">For reservations or inquiries, please contact us:</p>
+      <ul style="font-size: 25px;font-family: 'Times New Roman', Times, serif;" >
+        <li>EMAIL: emberresorts@gmail.com</li>
+        <li>PHONE: +1234567890</li>
+        <li>ADDRESS: 7 Paradise lake , Luxury Road , Avenue City</li>
+      </ul>
+    </div>
+      <from>
+        <div id="textmain">
+        <label class="glow"> SEND US A QUICK MESSAGE </label>
+        <br>
+
+        <textarea  rows="10" cols="50"> Please include necessary contact details </textarea>
+        <button  class="button" type="submit" onclick="message()"> SUBMIT </button></div>
+      </from>
+    </div>
+    </div>
+    </div>
+  </b>
+  </section>
+
+
+  <footer>
+    <p><marquee>&copy; 2024 EMBER ESTATE. All rights reserved.</marquee></p>
+  </footer>
+</body>
+</html>

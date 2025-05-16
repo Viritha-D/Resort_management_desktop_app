@@ -1,0 +1,183 @@
+<html>
+    <head>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th {
+                color: #f6f6fb;
+                font-weight: bold;
+            }
+            td {
+                color: #f6f6fb;
+                white-space: normal;
+            }
+            .centered-table {
+                width: 70%; 
+                margin: 0 auto; 
+                text-align: center; 
+            }
+            .centered-table td, .centered-table th {
+                padding: 10px;
+            }
+            a {
+                color: #f6f6fb;
+            }
+            a:hover {
+                color: #f6f6fb;
+            }
+            button {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+        </style>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    </head>
+    <body style = "font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; background-color: #333;">
+        <div style = "padding-left: 7%; padding-top: 3%; padding-right: 7%; padding-bottom: 3%;">
+            <h1 style = "color: #f6f6fb;">Menu</h1>
+            <table class="centered-table" style="font-size: larger;">
+                <tr>
+                    <td><a href="Starters.html" target="menu">Starters</a></td>
+                    <td><a href="Main Course.html" target="menu">Main Course</a></td>
+                </tr>
+                <tr>
+                    <td><a href="Desserts.html" target="menu">Desserts</a></td>
+                    <td><a href="Drinks.html" target="menu">Drinks</a></td>
+                </tr>
+            </table>
+            <h1 style = "color: #f6f6fb;">Place Order</h1>
+            <table cellpadding = "3px" style = "color: #f6f6fb;">
+                <tr>
+                    <td>Dish: </td>
+                    <td><select id="dishselect" style = "width: 250px;">
+                        <option value="1">001 - Deconstructed Samosa Chaat</option>
+                        <option value="2">002 - Saffron-Scented Aloo Tikki with Mint Chutney</option>
+                        <option value="3">003 - Gunpowder Shrimp with Coconut Foam</option>
+                        <option value="4">004 - Ruby Red Chicken Tikka</option>
+                        <option value="5">005 - Crispy Cauliflower Florets with Tamarind Glaze</option>
+                        <option value="11">011 - Malai Kofta Korma</option>
+                        <option value="12">012 - Chettinad Vegetable Biryani</option>
+                        <option value="13">013 - Konkani Fish Curry with Coconut Milk</option>
+                        <option value="14">014 - Ruby Red Chicken Tikka</option>
+                        <option value="15">015 - Crispy Cauliflower Florets with Tamarind Glaze</option>
+                        <option value="21">021 - Rose Petal Panna Cotta with Pistachio Dust</option>
+                        <option value="22">022 - Saffron Shrikhand Verrine</option>
+                        <option value="23">023 - Gulab Jamun Brûlée</option>
+                        <option value="24">024 - Kulfi Parfait</option>
+                        <option value="25">025 - Mango Lassi Cheesecake</option>
+                        <option value="31">031 - Thandai Cooler</option>
+                        <option value="32">032 - Sparkling Buttermilk</option>
+                        <option value="33">033 - Kashmiri Kahwa</option>
+                        <option value="34">034 - Nolen Gur Sharbat</option>
+                        <option value="35">035 - Spiced Mango Lassi</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Quantity: </td>
+                    <td><input type="number" id="quantity" min = "1" value = "1"></td>
+                </tr>
+            </table>
+            <center>
+                <button onclick="addDish()">Add Dish</button>&nbsp;&nbsp;&nbsp;
+                <button onclick="removeDish()">Remove Previous</button>
+            </center>
+            <h2 style = "color: #f6f6fb;">Your Order:</h2>
+            <table cellpadding = "3" id = "billDisplay" style="text-align: left;">
+                <thead>
+                    <th style="width: 50%;"></th>
+                    <th style="width: 25%;"></th>
+                    <th style="width: 25%;"></th>
+                </thead> 
+            </table>
+            <h3 style = "color: #f6f6fb;">Total Price: Rs.<span id="totalValue">0</span></h3>
+            <p style="color: #f6f6fb;">Enter room no.: <input type = "number" id = "room"></p>
+            <button onclick="placeOrder(event)">Place Order</button>
+        </div>
+            
+
+        <script>
+            $(document).ready(function() {
+                $('#dishselect').select2({
+                    placeholder: "Select an option",
+                    allowClear: true
+                });
+            });
+
+            const dishPrices = {1: 195, 2: 245, 3: 245, 4: 275, 5: 245, 11: 195, 12: 245, 13: 245, 14: 275, 15: 245, 21: 245, 22: 245, 23: 225, 24: 275, 25: 245, 31: 125, 32: 95, 33: 125, 34: 105, 35: 105};
+
+            const dishTexts = {1: "001 - Deconstructed Samosa Chaat", 2: "002 - Saffron-Scented Aloo Tikki with Mint Chutney", 3: "003 - Gunpowder Shrimp with Coconut Foam", 4: "004 - Ruby Red Chicken Tikka", 5: "005 - Crispy Cauliflower Florets with Tamarind Glaze", 11: "011 - Malai Kofta Korma", 12: "012 - Chettinad Vegetable Biryani", 13: "013 - Konkani Fish Curry with Coconut Milk", 14: "014 - Ruby Red Chicken Tikka", 15: "015 - Crispy Cauliflower Florets with Tamarind Glaze", 21: "021 - Rose Petal Panna Cotta with Pistachio Dust", 22: "022 - Saffron Shrikhand Verrine", 23: "023 - Gulab Jamun Brûlée", 24: "024 - Kulfi Parfait", 25: "025 - Mango Lassi Cheesecake", 31: "031 - Thandai Cooler", 32: "032 - Sparkling Buttermilk", 33: "033 - Kashmiri Kahwa", 34: "034 - Nolen Gur Sharbat", 35: "035 - Spiced Mango Lassi"};
+
+            var bill = [];
+
+            function addDish() {
+                var dish = parseInt(document.getElementById('dishselect').value);
+                var quantity = parseInt(document.getElementById('quantity').value);
+
+                if (dish == null || isNaN(quantity)) {
+                    alert("Please fill in all fields.");
+                    return;
+                }
+
+                var existingItem = bill.find(item => item.name === dishTexts[dish]);
+    
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                    existingItem.unitTotal = existingItem.quantity * dishPrices[dish];
+                } else {
+                    const unitTotal = quantity * dishPrices[dish];
+                    const name = dishTexts[dish];
+                    bill.push({ name, quantity, unitTotal });
+                }
+
+                display();
+                total();
+            }
+
+            function display() {
+                const list = document.getElementById('billDisplay');
+                list.innerHTML = '';
+                bill.forEach(dish => {
+                    var row = document.createElement("tr");
+                    var cell1 = document.createElement("td");
+                    var cell2 = document.createElement("td");
+                    var cell3 = document.createElement("td");
+                    cell1.textContent = dish.name;
+                    cell2.textContent = dish.quantity;
+                    cell3.textContent = dish.unitTotal;
+                    row.appendChild(cell1);
+                    row.appendChild(cell2);
+                    row.appendChild(cell3);
+                    list.appendChild(row);
+                });
+            }
+
+            function total() {
+                var totalValue = bill.reduce((sum, dish) => sum + dish.unitTotal, 0);
+                document.getElementById('totalValue').textContent = totalValue;
+            }
+
+            function removeDish() {
+                bill.pop();
+                display();
+                total();
+            }
+
+            function placeOrder(event) {
+                event.preventDefault();
+                var room = parseInt(document.getElementById("room").value);
+                if (room === null) {
+                    alert("Enter room number.");
+                    return;
+                }
+                if (bill.length == 0) {
+                    alert("Order is empty.");
+                    return;
+                }
+                window.location.href = 'Thank You.html';
+            }
+        </script>
+    </body>
+</html>

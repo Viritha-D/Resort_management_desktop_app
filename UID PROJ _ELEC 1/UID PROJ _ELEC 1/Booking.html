@@ -1,0 +1,36 @@
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Park - [Hotel Name]</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <section id="bookingForm">
+            <h2>Plan Your Visit</h2>
+        <form onsubmit="return validateForm()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            
+            <label for="activity">Select Activity:</label>
+            <select id="activity" name="activity">
+                <option value="">--Select an Activity--</option>
+                <option value="zip-lining">Zip Lining</option>
+                <option value="rock-climbing">Rock Climbing</option>
+                <option value="Bungee Jumping">Bungee Jumping</option>
+                <option value="Go Carting">Go Carting</option>
+                <option value="Sky Diving">Sky Diving</option>
+                <option value="Horseback Riding">Horseback Riding</option>
+            </select>
+            
+            <label for="date">Preferred Date:</label>
+            <input type="date" id="date" name="date">
+            
+            <input type="submit" value="Submit">
+        </form>
+            </form>
+    </body>
+</html>
